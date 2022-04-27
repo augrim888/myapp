@@ -89,14 +89,16 @@ function App() {
     context.lineJoin = "round";
     context.stroke();
     }
+    else {
+      xvalEnd = getX(event);
+      yvalEnd = getY(event);
+     }
     event.preventDefault();
     }
 
     const stop=(event)=> {
     if (is_drawing) {
     context.stroke();
-    xvalEnd = (getX(event));
-    yvalEnd = (getY(event));
     console.log("END: "+xvalEnd+" "+yvalEnd);
     if(xvalEnd<0)
     {
