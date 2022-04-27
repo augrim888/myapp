@@ -2,7 +2,6 @@ import {useState} from 'react';
 import database from './firebase';
   
 function App() {
-
  // const []
   // Push Function
   const pushStart = () => {
@@ -31,8 +30,8 @@ function App() {
     let xvalEnd=0;
     let yvalEnd=0;
     let values =0;
-    let startArr =[];
-    let endArr = [];
+    let startArr =[[]];
+    let endArr = [[]];
 
     function change_color(element) {
     stroke_color = element.style.background;
@@ -103,8 +102,8 @@ function App() {
     endArr.push([xvalEnd,yvalEnd]);
     pushStart();
     pushEnd();
-    startArr=[];
-    endArr =[];
+    startArr=[[]];
+    endArr =[[]];
     is_drawing = false;
     values = 0;
     if(xvalStart==xvalEnd && yvalStart==yvalEnd && xvalStart!=0 && yvalStart!=0)
