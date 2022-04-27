@@ -1,5 +1,6 @@
 import {useState} from 'react';
 import database from './firebase';
+import { isMobile } from 'react-device-detect';
   
 function App() {
  // const []
@@ -64,7 +65,26 @@ function App() {
     console.log("new points: "+ getX(event) +" "+ getY(event) );
     context.lineTo(getX(event), getY(event));
     values = values+1;
-    if(values>=10){
+    if (isMobile && values>=5)
+    {
+      console.log("this is a mobile phone");
+      xvalEnd = getX(event);
+      yvalEnd = getY(event);
+      if(xvalEnd<0)
+      {
+        xvalEnd=0;
+      }
+      if(yvalEnd<0)
+      {
+        yvalEnd=0;
+      }
+      startArr.push([xvalStart,yvalStart]);
+      endArr.push([xvalEnd,yvalEnd]);
+      xvalStart = xvalEnd;
+      yvalStart = yvalEnd;
+      values=0;
+    }
+    else if(values>=10){
       xvalEnd = getX(event);
       yvalEnd = getY(event);
       if(xvalEnd<0)
