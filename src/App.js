@@ -38,15 +38,15 @@ function App() {
     let xvalEnd=0;
     let yvalEnd=0;
     let values =0;
+    let xdist=0;
+    let ydist =0;
+    let dis =0;
     let startArr =[];
     let endArr = [];
 
-    function change_color(element) {
-    stroke_color = element.style.background;
-    }
+    const distance = ()=>
+    {
 
-    function change_width(element) {
-    stroke_width = element.innerHTML
     }
 
     const start=(event)=>{
@@ -97,7 +97,7 @@ function App() {
     context.stroke();
     xvalEnd = (getX(event));
     yvalEnd = (getY(event));
-    //console.log("END: "+xvalEnd+" "+yvalEnd);
+    console.log("END: "+xvalEnd+" "+yvalEnd);
     if(xvalEnd<0)
     {
       xvalEnd=0;
@@ -169,6 +169,8 @@ function App() {
     context.fillRect(0, 0, canvas.width, canvas.height);
     restore_array = [];
     start_index = -1;
+    startArr=[];
+    endArr =[];
 }
   
   return (
