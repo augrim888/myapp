@@ -15,8 +15,16 @@ function App() {
     }).catch(alert);
   }
     let canvas = document.getElementById("canvas");
-    canvas.width = 432;
-    canvas.height = 543;
+    if(window.innerHeight<window.innerWidth)
+    {
+      canvas.height = window.innerHeight - (window.innerHeight/20)*3;
+      canvas.width = canvas.height*0.7727;
+    }
+    if(window.innerHeight>window.innerWidth)
+    {
+      canvas.width = window.innerWidth-(window.innerWidth/20)*3;
+      canvas.height = canvas.width*1.2941;
+    }
     let context = canvas.getContext("2d");
     context.fillStyle = "white";
     context.fillRect(0, 0, canvas.width, canvas.height);
@@ -167,7 +175,9 @@ function App() {
     <><div className="App" style={{marginTop : 50}}>
     </div>
     <center>
-    <button onClick={Clear}>Clear</button></center></>
+      <div style ={{marginBottom:10}}>
+    <button onClick={Clear}>Clear</button></div></center>
+    </>
   );
 }
   
