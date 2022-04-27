@@ -2,12 +2,7 @@ import {useState} from 'react';
 import database from './firebase';
   
 function App() {
-
-
-
-
  // const []
-      
   // Push Function
   const pushStart = () => {
     database.ref().update({
@@ -20,8 +15,8 @@ function App() {
     }).catch(alert);
   }
     let canvas = document.getElementById("canvas");
-    canvas.width = 800;
-    canvas.height = 600;
+    canvas.width = 432;
+    canvas.height = 543;
     let context = canvas.getContext("2d");
     context.fillStyle = "white";
     context.fillRect(0, 0, canvas.width, canvas.height);
@@ -64,6 +59,14 @@ function App() {
     if(values>=10){
       xvalEnd = getX(event);
       yvalEnd = getY(event);
+      if(xvalEnd<0)
+      {
+        xvalEnd=0;
+      }
+      if(yvalEnd<0)
+      {
+        yvalEnd=0;
+      }
       startArr.push([xvalStart,yvalStart]);
       endArr.push([xvalEnd,yvalEnd]);
       xvalStart = xvalEnd;
@@ -87,6 +90,14 @@ function App() {
     xvalEnd = (getX(event));
     yvalEnd = (getY(event));
     //console.log("END: "+xvalEnd+" "+yvalEnd);
+    if(xvalEnd<0)
+    {
+      xvalEnd=0;
+    }
+    if(yvalEnd<0)
+    {
+      yvalEnd=0;
+    }
     startArr.push([xvalStart,yvalStart]);
     endArr.push([xvalEnd,yvalEnd]);
     pushStart();
@@ -95,7 +106,14 @@ function App() {
     endArr =[[]];
     is_drawing = false;
     values = 0;
+    if(xvalStart==xvalEnd && yvalStart==yvalEnd && xvalStart!=0 && yvalStart!=0)
+    {
+      console.log("haha point");
+      context.fillStyle= "#000";
+      context.fillRect(xvalStart,yvalStart,1,1);
     }
+    }
+   
     event.preventDefault();
     restore_array.push(context.getImageData(0, 0, canvas.width, canvas.height));
     start_index += 1;
@@ -134,6 +152,10 @@ function App() {
     }
     const Clear=()=> {
     console.log("here");
+    xvalStart=0;
+    xvalEnd=0;
+    yvalStart=0;
+    yvalEnd=0;
     context.fillStyle = "white";
     context.clearRect(0, 0, canvas.width, canvas.height);
     context.fillRect(0, 0, canvas.width, canvas.height);
@@ -142,9 +164,10 @@ function App() {
 }
   
   return (
-    <div className="App" style={{marginTop : 250}}>
-        <button onClick={Clear}>Clear</button>
+    <><div className="App" style={{marginTop : 50}}>
     </div>
+    <center>
+    <button onClick={Clear}>Clear</button></center></>
   );
 }
   
