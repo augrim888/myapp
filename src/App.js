@@ -1,8 +1,6 @@
-import {useState} from 'react';
+
 import database from './firebase';
 import { isMobile } from 'react-device-detect';
-import { pow } from 'mathjs';
-import { sqrt } from 'mathjs';
 import * as math from 'mathjs'
   
 function App() {
@@ -12,6 +10,7 @@ function App() {
     database.ref().update({
       start : startArr,
       end : endArr,
+      length: dist,
     }).catch(alert);
   }
     let canvas = document.getElementById("canvas");
@@ -45,10 +44,13 @@ function App() {
     let ratioWi = 431/canvas.width;
     let startArr =[];
     let endArr = [];
-
-    const distance = ()=>
+    let length = 0;
+    const getDistance = ()=>
     {
-
+      database.ref().get(database).then((snapshot)=>{
+        length = snapshot.val().length;
+        console.log(length);}) 
+        return(length);
     }
 
     const start=(event)=>{
@@ -88,8 +90,8 @@ function App() {
       {
         yvalEnd=558;
       }
-      xdist = xvalEnd-xvalStart;
-      ydist = yvalEnd-yvalStart;
+      xdist = (xvalEnd-xvalStart)*ratioWi;
+      ydist = (yvalEnd-yvalStart)*ratioHi;
       dist = dist+math.sqrt(math.pow(xdist,2)+math.pow(ydist,2))
       startArr.push([xvalStart*ratioWi,yvalStart*ratioHi]);
       endArr.push([xvalEnd*ratioWi,yvalEnd*ratioHi]);
@@ -116,12 +118,10 @@ function App() {
       {
         yvalEnd=558;
       }
-      xdist = xvalEnd-xvalStart;
-      ydist = yvalEnd-yvalStart;
+      xdist = (xvalEnd-xvalStart)*ratioWi;
+      ydist = (yvalEnd-yvalStart)*ratioHi;
+      dist = dist+math.sqrt(math.pow(xdist,2)+math.pow(ydist,2))
       console.log("xdist: "+xdist+" ydist: "+ ydist);
-      let val = math.sqrt(25);
-      console.log(val);
-      dist = dist + math.sqrt(math.pow(xdist,2)+math.pow(ydist,2))
       console.log("dist = "+dist);
       startArr.push([xvalStart*ratioWi,yvalStart*ratioHi]);
       endArr.push([xvalEnd*ratioWi,yvalEnd*ratioHi]);
@@ -166,9 +166,11 @@ function App() {
       startArr.push([xvalStart*ratioWi,yvalStart*ratioHi]);
       endArr.push([xvalEnd*ratioWi,yvalEnd*ratioHi]);
     }
+    dist = dist+getDistance();
     pushValues();
     startArr=[];
     endArr =[];
+    dist=0;
     //console.log("total distance drawn is :"+dist+" pixels");
     }
    
@@ -221,6 +223,7 @@ function App() {
     start_index = -1;
     startArr=[];
     endArr =[];
+    dist=0;
 }
   
   return (
