@@ -42,8 +42,8 @@ function App() {
     let xdist=0;
     let ydist =0;
     let dis =0;
-    let ratioHi=canvas.height;
-    let ratioWi =canvas.width;
+    let ratioHi=594/canvas.height;
+    let ratioWi =420/canvas.width;
     let ratio =1;
     let startArr =[];
     let endArr = [];
@@ -59,8 +59,8 @@ function App() {
     context.moveTo(getX(event), getY(event));
     //console.log("START: "+getX(event)+" "+getY(event));
     event.preventDefault();
-    xvalStart = getX(event)*ratio;
-    yvalStart = getY(event)*ratio;
+    xvalStart = getX(event)*ratioWi;
+    yvalStart = getY(event)*ratioHi;
     console.log("the ratio betweenn screen is"+ratioHi/ratioWi );
     }
     
@@ -72,8 +72,8 @@ function App() {
     if (isMobile && values>=10)
     {
       console.log("this is a mobile phone");
-      xvalEnd = getX(event)*ratio;
-      yvalEnd = getY(event)*ratio;
+      xvalEnd = getX(event)*ratioWi;
+      yvalEnd = getY(event)*ratioHi;
       if(xvalEnd<0)
       {
         xvalEnd=0;
@@ -89,8 +89,8 @@ function App() {
       values=0;
     }
     else if(values>=10){
-      xvalEnd = getX(event)*ratio;
-      yvalEnd = getY(event)*ratio;
+      xvalEnd = getX(event)*ratioWi;
+      yvalEnd = getY(event)*ratioHi;
       if(xvalEnd<0)
       {
         xvalEnd=0;
@@ -114,8 +114,8 @@ function App() {
     context.stroke();
     }
     else {
-      xvalEnd = getX(event)*ratio;
-      yvalEnd = getY(event)*ratio;
+      xvalEnd = getX(event)*ratioWi;
+      yvalEnd = getY(event)*ratioHi;
      }
     event.preventDefault();
     }
