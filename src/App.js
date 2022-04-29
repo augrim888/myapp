@@ -19,12 +19,12 @@ function App() {
     if(window.innerHeight<window.innerWidth)
     {
       canvas.height = window.innerHeight - (window.innerHeight/20)*3;
-      canvas.width = canvas.height*0.7727;
+      canvas.width = canvas.height*0.70707;
     }
     if(window.innerHeight>window.innerWidth)
     {
       canvas.width = window.innerWidth-(window.innerWidth/20)*3;
-      canvas.height = canvas.width*1.2941;
+      canvas.height = canvas.width*1.4143;
     }
     let context = canvas.getContext("2d");
     context.fillStyle = "white";
@@ -42,7 +42,9 @@ function App() {
     let xdist=0;
     let ydist =0;
     let dis =0;
-    let ratio=594/canvas.height;
+    let ratioHi=canvas.height;
+    let ratioWi =canvas.width;
+    let ratio =1;
     let startArr =[];
     let endArr = [];
 
@@ -59,6 +61,7 @@ function App() {
     event.preventDefault();
     xvalStart = getX(event)*ratio;
     yvalStart = getY(event)*ratio;
+    console.log("the ratio betweenn screen is"+ratioHi/ratioWi );
     }
     
     const draw=(event)=> {
