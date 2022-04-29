@@ -42,6 +42,7 @@ function App() {
     let xdist=0;
     let ydist =0;
     let dis =0;
+    let ratio=594/canvas.height;
     let startArr =[];
     let endArr = [];
 
@@ -56,8 +57,8 @@ function App() {
     context.moveTo(getX(event), getY(event));
     //console.log("START: "+getX(event)+" "+getY(event));
     event.preventDefault();
-    xvalStart = (getX(event));
-    yvalStart = (getY(event));
+    xvalStart = getX(event)*ratio;
+    yvalStart = getY(event)*ratio;
     }
     
     const draw=(event)=> {
@@ -65,11 +66,11 @@ function App() {
     console.log("new points: "+ getX(event) +" "+ getY(event) );
     context.lineTo(getX(event), getY(event));
     values = values+1;
-    if (isMobile && values>=5)
+    if (isMobile && values>=10)
     {
       console.log("this is a mobile phone");
-      xvalEnd = getX(event);
-      yvalEnd = getY(event);
+      xvalEnd = getX(event)*ratio;
+      yvalEnd = getY(event)*ratio;
       if(xvalEnd<0)
       {
         xvalEnd=0;
@@ -85,8 +86,8 @@ function App() {
       values=0;
     }
     else if(values>=10){
-      xvalEnd = getX(event);
-      yvalEnd = getY(event);
+      xvalEnd = getX(event)*ratio;
+      yvalEnd = getY(event)*ratio;
       if(xvalEnd<0)
       {
         xvalEnd=0;
@@ -110,8 +111,8 @@ function App() {
     context.stroke();
     }
     else {
-      xvalEnd = getX(event);
-      yvalEnd = getY(event);
+      xvalEnd = getX(event)*ratio;
+      yvalEnd = getY(event)*ratio;
      }
     event.preventDefault();
     }
