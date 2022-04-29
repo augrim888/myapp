@@ -19,12 +19,12 @@ function App() {
     if(window.innerHeight<window.innerWidth)
     {
       canvas.height = window.innerHeight - (window.innerHeight/20)*3;
-      canvas.width = canvas.height*(420/594);
+      canvas.width = canvas.height*(431/558);
     }
     if(window.innerHeight>window.innerWidth)
     {
       canvas.width = window.innerWidth-(window.innerWidth/20)*3;
-      canvas.height = canvas.width*(594/420);
+      canvas.height = canvas.width*(431/558);
     }
     let context = canvas.getContext("2d");
     context.fillStyle = "white";
@@ -42,9 +42,8 @@ function App() {
     let xdist=0;
     let ydist =0;
     let dis =0;
-    let ratioHi=594/canvas.height;
-    let ratioWi =420/canvas.width;
-    let ratio =1;
+    let ratioHi=558/canvas.height;
+    let ratioWi =431/canvas.width;
     let startArr =[];
     let endArr = [];
 
@@ -59,8 +58,8 @@ function App() {
     context.moveTo(getX(event), getY(event));
     //console.log("START: "+getX(event)+" "+getY(event));
     event.preventDefault();
-    xvalStart = getX(event)*ratioWi;
-    yvalStart = getY(event)*ratioHi;
+    xvalStart = getX(event);
+    yvalStart = getY(event);
     console.log("the ratio betweenn screen is"+ratioHi/ratioWi );
     }
     
@@ -69,11 +68,12 @@ function App() {
     console.log("new points: "+ getX(event) +" "+ getY(event) );
     context.lineTo(getX(event), getY(event));
     values = values+1;
-    if (isMobile && values>=10)
+    if (isMobile && values>=5)
     {
       console.log("this is a mobile phone");
-      xvalEnd = getX(event)*ratioWi;
-      yvalEnd = getY(event)*ratioHi;
+      xvalEnd = getX(event);
+      yvalEnd = getY(event);
+      
       if(xvalEnd<0)
       {
         xvalEnd=0;
@@ -82,15 +82,15 @@ function App() {
       {
         yvalEnd=0;
       }
-      startArr.push([xvalStart,yvalStart]);
-      endArr.push([xvalEnd,yvalEnd]);
+      startArr.push([xvalStart*ratioWi,yvalStart*ratioHi]);
+      endArr.push([xvalEnd*ratioWi,yvalEnd*ratioHi]);
       xvalStart = xvalEnd;
       yvalStart = yvalEnd;
       values=0;
     }
     else if(values>=10){
-      xvalEnd = getX(event)*ratioWi;
-      yvalEnd = getY(event)*ratioHi;
+      xvalEnd = getX(event);
+      yvalEnd = getY(event);
       if(xvalEnd<0)
       {
         xvalEnd=0;
@@ -99,8 +99,8 @@ function App() {
       {
         yvalEnd=0;
       }
-      startArr.push([xvalStart,yvalStart]);
-      endArr.push([xvalEnd,yvalEnd]);
+      startArr.push([xvalStart*ratioWi,yvalStart*ratioHi]);
+      endArr.push([xvalEnd*ratioWi,yvalEnd*ratioHi]);
       xvalStart = xvalEnd;
       yvalStart = yvalEnd;
       values=0;
@@ -114,8 +114,8 @@ function App() {
     context.stroke();
     }
     else {
-      xvalEnd = getX(event)*ratioWi;
-      yvalEnd = getY(event)*ratioHi;
+      xvalEnd = getX(event);
+      yvalEnd = getY(event);
      }
     event.preventDefault();
     }
@@ -132,12 +132,6 @@ function App() {
     {
       yvalEnd=0;
     }
-    startArr.push([xvalStart,yvalStart]);
-    endArr.push([xvalEnd,yvalEnd]);
-    pushStart();
-    pushEnd();
-    startArr=[];
-    endArr =[];
     is_drawing = false;
     values = 0;
     if(xvalStart==xvalEnd && yvalStart==yvalEnd && xvalStart!=0 && yvalStart!=0)
@@ -145,7 +139,13 @@ function App() {
       console.log("haha point");
       context.fillStyle= "#000";
       context.fillRect(xvalStart,yvalStart,1,1);
+      startArr.push([xvalStart*ratioWi,yvalStart*ratioHi]);
+      endArr.push([xvalEnd*ratioWi,yvalEnd*ratioHi]);
     }
+    pushStart();
+    pushEnd();
+    startArr=[];
+    endArr =[];
     }
    
     event.preventDefault();
