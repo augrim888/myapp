@@ -24,7 +24,7 @@ function App() {
     if(window.innerHeight>window.innerWidth)
     {
       canvas.width = window.innerWidth-(window.innerWidth/20)*3;
-      canvas.height = canvas.width*(431/558);
+      canvas.height = canvas.width*(558/431);
     }
     let context = canvas.getContext("2d");
     context.fillStyle = "white";
@@ -42,8 +42,8 @@ function App() {
     let xdist=0;
     let ydist =0;
     let dis =0;
-    let ratioHi=558/canvas.height;
-    let ratioWi =431/canvas.width;
+    let ratioHi = 558/canvas.height;
+    let ratioWi = 431/canvas.width;
     let startArr =[];
     let endArr = [];
 
