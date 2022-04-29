@@ -2,6 +2,7 @@
 import database from './firebase';
 import { isMobile } from 'react-device-detect';
 import * as math from 'mathjs'
+
   
 function App() {
  // const []
@@ -227,11 +228,10 @@ function App() {
 }
   
   return (
-    <><div className="App" style={{marginTop : 50}}>
-    </div>
+    <>
     <center>
-      <div style ={{marginBottom:10}}>
-    <button onClick={Clear}>Clear</button></div></center>
+      <div style ={{marginBottom:10, marginTop:20}}>
+    <button onClick={Clear}style ={{background: '#000',borderRadius: 8,color: '#fff',fontSize:24}}>Clear</button></div></center>
     </>
   );
 }
