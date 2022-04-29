@@ -1,17 +1,16 @@
 import {useState} from 'react';
 import database from './firebase';
 import { isMobile } from 'react-device-detect';
+import { pow } from 'mathjs';
+import { sqrt } from 'mathjs';
+import * as math from 'mathjs'
   
 function App() {
  // const []
   // Push Function
-  const pushStart = () => {
+  const pushValues = () => {
     database.ref().update({
       start : startArr,
-    }).catch(alert);
-  }
-  const pushEnd = () => {
-    database.ref().update({
       end : endArr,
     }).catch(alert);
   }
@@ -41,7 +40,7 @@ function App() {
     let values =0;
     let xdist=0;
     let ydist =0;
-    let dis =0;
+    let dist =0;
     let ratioHi = 558/canvas.height;
     let ratioWi = 431/canvas.width;
     let startArr =[];
@@ -60,12 +59,11 @@ function App() {
     event.preventDefault();
     xvalStart = getX(event);
     yvalStart = getY(event);
-    console.log("the ratio betweenn screen is"+ratioHi/ratioWi );
     }
     
     const draw=(event)=> {
     if (is_drawing) {
-    console.log("new points: "+ getX(event) +" "+ getY(event) );
+    //console.log("new points: "+ getX(event) +" "+ getY(event) );
     context.lineTo(getX(event), getY(event));
     values = values+1;
     if (isMobile && values>=5)
@@ -78,10 +76,21 @@ function App() {
       {
         xvalEnd=0;
       }
+      else if(xvalEnd>431)
+      {
+        xvalEnd=431;
+      }
       if(yvalEnd<0)
       {
         yvalEnd=0;
       }
+      else if(yvalEnd>558)
+      {
+        yvalEnd=558;
+      }
+      xdist = xvalEnd-xvalStart;
+      ydist = yvalEnd-yvalStart;
+      dist = dist+math.sqrt(math.pow(xdist,2)+math.pow(ydist,2))
       startArr.push([xvalStart*ratioWi,yvalStart*ratioHi]);
       endArr.push([xvalEnd*ratioWi,yvalEnd*ratioHi]);
       xvalStart = xvalEnd;
@@ -95,10 +104,25 @@ function App() {
       {
         xvalEnd=0;
       }
+      else if(xvalEnd>431)
+      {
+        xvalEnd=431;
+      }
       if(yvalEnd<0)
       {
         yvalEnd=0;
       }
+      else if(yvalEnd>558)
+      {
+        yvalEnd=558;
+      }
+      xdist = xvalEnd-xvalStart;
+      ydist = yvalEnd-yvalStart;
+      console.log("xdist: "+xdist+" ydist: "+ ydist);
+      let val = math.sqrt(25);
+      console.log(val);
+      dist = dist + math.sqrt(math.pow(xdist,2)+math.pow(ydist,2))
+      console.log("dist = "+dist);
       startArr.push([xvalStart*ratioWi,yvalStart*ratioHi]);
       endArr.push([xvalEnd*ratioWi,yvalEnd*ratioHi]);
       xvalStart = xvalEnd;
@@ -123,7 +147,7 @@ function App() {
     const stop=(event)=> {
     if (is_drawing) {
     context.stroke();
-    console.log("END: "+xvalEnd+" "+yvalEnd);
+    //console.log("END: "+xvalEnd+" "+yvalEnd);
     if(xvalEnd<0)
     {
       xvalEnd=0;
@@ -134,18 +158,18 @@ function App() {
     }
     is_drawing = false;
     values = 0;
-    if(xvalStart==xvalEnd && yvalStart==yvalEnd && xvalStart!=0 && yvalStart!=0)
+    if(xvalStart==xvalEnd && yvalStart==yvalEnd && startArr.length==0 && endArr.length==0)
     {
-      console.log("haha point");
+      //console.log("haha point");
       context.fillStyle= "#000";
       context.fillRect(xvalStart,yvalStart,1,1);
       startArr.push([xvalStart*ratioWi,yvalStart*ratioHi]);
       endArr.push([xvalEnd*ratioWi,yvalEnd*ratioHi]);
     }
-    pushStart();
-    pushEnd();
+    pushValues();
     startArr=[];
     endArr =[];
+    //console.log("total distance drawn is :"+dist+" pixels");
     }
    
     event.preventDefault();
