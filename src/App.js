@@ -19,12 +19,12 @@ function App() {
     if(window.innerHeight<window.innerWidth)
     {
       canvas.height = window.innerHeight - (window.innerHeight/20)*3;
-      canvas.width = canvas.height*0.70707;
+      canvas.width = canvas.height*(420/594);
     }
     if(window.innerHeight>window.innerWidth)
     {
       canvas.width = window.innerWidth-(window.innerWidth/20)*3;
-      canvas.height = canvas.width*1.4143;
+      canvas.height = canvas.width*(594/420);
     }
     let context = canvas.getContext("2d");
     context.fillStyle = "white";
